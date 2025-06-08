@@ -1,61 +1,66 @@
-Image Upload Package
+# Image Upload Package
+
 A Laravel package for handling image uploads in your applications.
-Installation
-You can install the package via Composer:
+
+## Installation
+
+You can install the package via composer:
+
+```bash
 composer require mar3y/image-upload
+```
 
-Requirements
+## Usage
 
-PHP 7.4, 8.0, 8.1, 8.2, or 8.3
-Laravel 8, 9, 10, 11, or 12
-The public disk configured in config/filesystems.php
-Run php artisan storage:link to link the public/storage directory
+### Using the HasImage Trait
 
-Usage
-Using the HasImage Trait
-To use the HasImage trait in your model, follow these steps:
+To use the `HasImage` trait in your model, follow these steps:
 
-Add the trait to your model class:
-use mar3y\ImageUpload\Traits\HasImage;
+1.  **Add the trait to your model class:**
 
-class YourModel extends Model
-{
-    use HasImage;
+    ```php
+    use mar3y\ImageUpload\Traits\HasImage;
 
-    protected $fillable = ['image'];
-    protected static $imageAttributes = ['image'];
-}
+    class YourModel extends Model
+    {
+        use HasImage;
 
+        protected static $imageAttributes = ['image'];
+    }
+    ```
 
-Define the image attributes:
- In your model, define the $imageAttributes property as an array of attribute names that will store image paths. For example, protected static $imageAttributes = ['image', 'logo', 'banner'];.
+2.  **Define the image attributes:**
 
-Upload an image:
- When you save a model instance with an image attribute set to an UploadedFile instance, the trait will automatically upload the image and store the path.
-$model = new YourModel();
-$model->image = $request->file('image');
-$model->save();
+    In your model class, define the `$imageAttributes` property as an array of attribute names that will store image paths. For example, if your model has an `image` attribute, you would set `protected static $imageAttributes = ['image'];`.
 
+3.  **Upload an image:**
 
-Retrieve the image URL:
- Access the full URL of the image using the attribute name.
-$imageUrl = $model->image; // e.g., http://yourdomain.com/storage/images/yourmodel/xyz.jpg
+    When you save a model instance with an image attribute set to an `UploadedFile` instance, the trait will automatically upload the image and store the path in the attribute.
 
+    ```php
+    $model = new YourModel();
+    $model->image = $request->file('image');
+    $model->save();
+    ```
 
+4.  **Retrieve the image URL:**
 
-Using the ImageUploadHelper
-You can also use the ImageUploadHelper class directly:
+    You can retrieve the full URL of the image using the attribute name.
+
+    ```php
+    $imageUrl = $model->image;
+    ```
+
+### Using the ImageUploadHelper
+
+You can also use the `ImageUploadHelper` class directly:
+
+```php
 use mar3y\ImageUpload\Helpers\ImageUploadHelper;
 
 $path = ImageUploadHelper::uploadImage($file, 'your-directory');
+```
 
-Troubleshooting
+## License
 
-Images not accessible: Ensure you’ve run php artisan storage:link and the public disk is configured in config/filesystems.php.
-Class not found: Verify that Composer autoloading is set up correctly by running composer dump-autoload.
-Relative URLs in API responses: Check that your model uses the HasImage trait and defines $imageAttributes.
-
-Contributing
-Contributions are welcome! Please submit a pull request or open an issue on GitHub.
-License
-The MIT License (MIT). See License File for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
