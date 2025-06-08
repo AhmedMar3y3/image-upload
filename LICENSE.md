@@ -1,9 +1,3 @@
-
-- **Action**: Save the updated `README.md` in your `laravel-image-upload` directory.
-
-#### 1.2 Add a `LICENSE` File
-Your `composer.json` specifies an MIT license, but you don’t have a `LICENSE` file in the package. It’s a best practice to include one to clarify the terms under which others can use your package. Create a file named `LICENSE` in the root of `laravel-image-upload`:
-
 ```text
 MIT License
 
